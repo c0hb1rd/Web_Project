@@ -4665,3 +4665,21 @@ CREATE TABLE `user_coupon` (
 -- ----------------------------
 -- Records of user_coupon
 -- ----------------------------
+create table examination_room(
+    id int primary key auto_increment,
+    s_from_school varchar(255),
+    s_school_num varchar(255),
+    s_name varchar(255),
+    s_sex varchar(255),
+    s_id_card varchar(255),
+    s_major varchar(255),
+    s_want_major varchar(255),
+    s_exam_subject varchar(255),
+    s_id varchar(255),
+    s_exam_venue varchar(255),
+    s_exam_id varchar(255),
+    s_seat_num varchar(255),
+    s_exam_room varchar(255),
+    s_exam_num varchar(255),
+    s_exam_date varchar(255)
+) charset="utf8";
