@@ -28,18 +28,16 @@ switch($act){
 			mysql_query($sql) or die(mysql_error($sql));
 			$query = mysql_query($sql);
 			$row = mysql_fetch_array($query);
-			$sql = 'insert into examination_room(
-					s_id,
-					s_school_num,
-					s_from_school,
-					s_name,
-					s_sex,
-					s_id_card,
-					s_major,
-					s_want_major
+			$sql = 'insert into kaochang(
+					k_id,
+					k_biye,
+					k_xingming,
+					k_xingbie,
+					k_shenfenzheng,
+					k_suoxuezhuanye,
+					k_baokaozhuanye
 				) values (
 					"' . $row['u_id'] . '",
-					"' . $row['u_zk_num'] . '",
 					"' . $row['u_at_school'] . '",
 					"' . $row['u_name'] . '",
 					"' . $row['u_sex'] . '",
@@ -56,7 +54,7 @@ switch($act){
 			$query = mysql_query($sql);
 			$row = mysql_fetch_array($query);
 			//$sql = 'insert into examination_room(s_from_school) values("Hello")';
-			$sql = 'delete from examination_room where s_id="' . $row['u_id'] . '"';
+			$sql = 'delete from kaochang where k_id="' . $row['u_id'] . '"';
 			mysql_query($sql) or die(mysql_error($sql));
 			Msg('','Referer');
 			break;

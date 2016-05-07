@@ -96,7 +96,7 @@ if ($_GET['act']=='modok'){
 	u_zj_num='$u_zj_num',
 	u_birth='$u_birth',
 	u_sex='$u_sex',
-	u_address_hk='$u_address_hk', 
+	u_address_hk='$u_address_hk',
 	u_address_city='$u_address_city',
 	u_address_xian='$u_address_xian',
 	u_huji='$u_huji',
@@ -117,32 +117,32 @@ if ($_GET['act']=='modok'){
 	u_resume1_date_end='$u_resume1_date_end',
 	u_resume1_content='$u_resume1_content',
 	u_resume1_position='$u_resume1_position',
-	
+
 	u_resume2_date_star='$u_resume2_date_star',
 	u_resume2_date_end='$u_resume2_date_end',
 	u_resume2_content='$u_resume2_content',
 	u_resume2_position='$u_resume2_position',
-	
+
 	u_resume3_date_star='$u_resume3_date_star',
 	u_resume3_date_end='$u_resume3_date_end',
 	u_resume3_content='$u_resume3_content',
 	u_resume3_position='$u_resume3_position',
-	
+
 	u_members1_name='$u_members1_name',
 	u_members1_relationship='$u_members1_relationship',
 	u_members1_work='$u_members1_work',
 	u_members1_chief='$u_members1_chief',
-	
+
 	u_members2_name='$u_members2_name',
 	u_members2_relationship='$u_members2_relationship',
 	u_members2_work='$u_members2_work',
 	u_members2_chief='$u_members2_chief',
-	
+
 	u_members3_name='$u_members3_name',
 	u_members3_relationship='$u_members3_relationship',
 	u_members3_work='$u_members3_work',
-	u_members3_chief='$u_members3_chief' 
-	
+	u_members3_chief='$u_members3_chief'
+
 	where u_id=$user_id";
 
     mysql_query($sql) or die(mysql_error($sql));
@@ -195,7 +195,7 @@ if ($_GET['act']=='modok'){
                 <tr>
                     <td class="edit_title">民族</td>
                     <td><select name="u_minzu" id="u_minzu" >
-                            <option value="">请选择</option>
+                            <option value="">请选择</option> 
                             <?php
                             $str1='';
                             $query1=mysql_query('select * from dz_minzu  order by p_id');

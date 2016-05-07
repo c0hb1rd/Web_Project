@@ -18,8 +18,8 @@ require 'uploadfontion.php';
  <?php
 if ($user=='') Msg('','index.php');
 if ($_POST['act']=='saveimg'){
- 
-	
+
+
 }
 ?>
 <?php
@@ -29,7 +29,7 @@ if(strlen($large_photo_exists)>0)
 	$current_large_image_width = getWidth($large_image_location);
 	$current_large_image_height = getHeight($large_image_location);
 
-	
+
 
 ?>
 
@@ -37,15 +37,15 @@ if(strlen($large_photo_exists)>0)
 
 
 
-function preview(img, selection) { 
-	var scaleX = <?php echo $thumb_width;?> / selection.width; 
-	var scaleY = <?php echo $thumb_height;?> / selection.height; 
-	
-	$('#thumbnail + div > img').css({ 
-		width: Math.round(scaleX * <?php echo $current_large_image_width;?>) + 'px', 
+function preview(img, selection) {
+	var scaleX = <?php echo $thumb_width;?> / selection.width;
+	var scaleY = <?php echo $thumb_height;?> / selection.height;
+
+	$('#thumbnail + div > img').css({
+		width: Math.round(scaleX * <?php echo $current_large_image_width;?>) + 'px',
 		height: Math.round(scaleY * <?php echo $current_large_image_height;?>) + 'px',
-		marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px', 
-		marginTop: '-' + Math.round(scaleY * selection.y1) + 'px' 
+		marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+		marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
 	});
 	$('#x1').val(selection.x1);
 	$('#y1').val(selection.y1);
@@ -53,9 +53,9 @@ function preview(img, selection) {
 	$('#y2').val(selection.y2);
 	$('#w').val(selection.width);
 	$('#h').val(selection.height);
-} 
+}
 
-$(document).ready(function () { 
+$(document).ready(function () {
 	$('#save_thumb').click(function() {
 		var x1 = $('#x1').val();
 		var y1 = $('#y1').val();
@@ -70,35 +70,35 @@ $(document).ready(function () {
 			return true;
 		}
 	});
-}); 
+});
 
-$(window).load(function () { 
-	$('#thumbnail').imgAreaSelect({ aspectRatio: '1:<?php echo $thumb_height/$thumb_width;?>', onSelectChange: preview }); 
+$(window).load(function () {
+	$('#thumbnail').imgAreaSelect({ aspectRatio: '1:<?php echo $thumb_height/$thumb_width;?>', onSelectChange: preview });
 });
 
 </script>
 <?php }?>
- 
+
 <?php
- 
-	
+
+
 if(strlen($error)>0){
 	echo "<ul><li><strong>Error!</strong></li><li>".$error."</li></ul>";
 }
 if(strlen($large_photo_exists)>0 && strlen($thumb_photo_exists)>0){
 	echo $large_photo_exists."&nbsp;".$thumb_photo_exists;
-	
+
 	$u_thumb_image=$upload_path.$thumb_image_name.$_SESSION['user_file_ext'];
 	$u_image=$upload_path.$large_image_name.$_SESSION['user_file_ext'];
 	  echo $large_photo."&nbsp;".$thumb_photo;
-	  $sql="update user set u_thumb_image='$u_thumb_image',	u_image='$u_image' where u_id=$user_id";	 
+	  $sql="update user set u_thumb_image='$u_thumb_image',	u_image='$u_image' where u_id=$user_id";
 	    mysql_query($sql) or die(mysql_error($sql));
-	    
+
 	echo "<p><a href=\"".$_SERVER["PHP_SELF"]."?a=delete&t=".$_SESSION['random_key'].$_SESSION['user_file_ext']."\">重新上传</a>
 	<a href=\"user_pic2.php\">查看相片</a></p>";
-	
-	 
-	
+
+
+
 	$_SESSION['random_key']= "";
 	$_SESSION['user_file_ext']= "";
 }else{
@@ -118,13 +118,13 @@ if(strlen($large_photo_exists)>0 && strlen($thumb_photo_exists)>0){
 				<input type="hidden" name="y2" value="192" id="y2">
 				<input type="hidden" name="w" value="144" id="w">
 				<input type="hidden" name="h" value="192" id="h">
-                                <input type="hidden" name="act" value="saveimg" id="h">
+                <input type="hidden" name="act" value="saveimg" id="h">
 				<input type="submit" name="upload_thumbnail" value="保存截图" id="save_thumb">
 			</form>
 		</div>
 	<hr>
 	<?php 	} ?>
-	 
+
   <form name="photo" enctype="multipart/form-data" action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
     <input type="file" name="image" size="30"> <input type="submit" name="upload" value="上传图片">
 	</form>

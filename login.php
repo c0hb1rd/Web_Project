@@ -120,7 +120,7 @@ if ($user!='') Msg('','user.php');
                   </tr>
 				  <tr>
 					<td align="right">验&nbsp;&nbsp;证&nbsp;&nbsp;码：</td>
-					<td><input type="text" name="u_code" class="inputtext" size="5" maxlength="4" />&nbsp;<img src="inc/code2.php" style="cursor:pointer; vertical-align:bottom;" title="点击更换图片" onclick="this.src='inc/code2.php?sj='+Math.random()" /></td>
+					<td><input type="text" name="u_code" class="inputtext" size="5" maxlength="4" />&nbsp;<img src="inc/code2.php" style="cursor:pointer; vertical-align:middle;" title="点击更换图片" onclick="this.src='inc/code2.php?sj='+Math.random()" /></td>
 				  </tr>
                   <tr>
 				  	<td>&nbsp;</td>

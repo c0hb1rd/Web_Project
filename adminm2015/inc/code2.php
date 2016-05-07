@@ -32,17 +32,17 @@ for ($i = 0; $i < $word_len; $i++) {
 $_SESSION [$session_key] = strtolower($word);
 $image = imagecreatetruecolor($img_w, $img_h);
 imagefilledrectangle($image, 0, 0, $img_w - 1, $img_h - 1, imagecolorallocate($image, mt_rand(235, 255), mt_rand(235, 255), mt_rand(235, 255)));
-  
+
 //绘制杂点
-for($i = 0; $i < $pixel_color; $i++){ 
+for($i = 0; $i < $pixel_color; $i++){
 	$noise_color = imagecolorallocate( $image, mt_rand(150,225), mt_rand(150,225), mt_rand(150,225) );
 	for($j = 0; $j < $pixel_num; $j++) {
 		imagestring( $image,  $noise_font_size, mt_rand(-10, $img_w), mt_rand(-10, $img_h), $code_str[mt_rand(0, $code_str_len)], $noise_color );
 	}
 }
-    
+
 //绘制文字
-for ($i = 0; $i < $word_len; ++$i) {           
+for ($i = 0; $i < $word_len; ++$i) {
 	$color = imagecolorallocate($image, mt_rand(0, 100), mt_rand(20, 120), mt_rand(50, 150));
 	imagettftext($image, $font_size, mt_rand($angle_l, $angle_r), $margin, mt_rand($base_line-$base_line_offset, $base_line+$base_line_offset), $color, $font_dir, mb_substr($word, $i, 1, 'utf-8'));
 	$margin += (imagefontwidth($font_size) + $padding);

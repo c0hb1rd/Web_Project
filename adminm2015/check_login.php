@@ -14,7 +14,7 @@ if ($code==''){
 	$errs=true;
 	$str.='<li>验证码错误!</li>';
 }
-if (strtolower($code)==$_SESSION['codea']){
+if (strtolower($code)!=$_SESSION['codea']){
 	$errs=true;
 	$str.='<li>验证码错误!</li>';
 }

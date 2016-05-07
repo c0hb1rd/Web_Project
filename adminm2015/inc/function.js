@@ -2,7 +2,7 @@
 	return document.getElementById(ObjID);
 }
 
-function Ajax(TagID,UrlStr){ 
+function Ajax(TagID,UrlStr){
 	xmlHttp=GetXmlHttpObject();
 	if (xmlHttp==null){
   		alert ("您的浏览器不支持AJAX!");
@@ -10,7 +10,7 @@ function Ajax(TagID,UrlStr){
 	}
 	var Url="ajax.php"+UrlStr+"&sid="+Math.random();
 	xmlHttp.onreadystatechange=function(){
-		if (xmlHttp.readyState==4){ 
+		if (xmlHttp.readyState==4){
 			if (xmlHttp.status==200){
 				$(TagID).innerHTML=xmlHttp.responseText;
 			}
@@ -99,7 +99,7 @@ function ShowHidden(ObjName){
 	if (ObjName=="item2"){
 		$("item1").style.display="none";
 		$("item2").style.display="block";
-	}	
+	}
 }
 function ShowHidden2(Num){
 	if (Num==0){
@@ -109,7 +109,7 @@ function ShowHidden2(Num){
 	if (Num==1){
 		$("item1").style.display="none";
 		$("item2").style.display="block";
-	}	
+	}
 }
 
 function ChangeClass(Val){
@@ -182,7 +182,7 @@ function CheckAdmin(ObjForm){
 	if (ConfirmPass.value==""){
 		alert("请输入确认密码！");
 		ConfirmPass.focus();
-		return false;	
+		return false;
 	}
 	if (NewPass.value!=ConfirmPass.value){
 		alert("确认密码不正确！");
@@ -302,7 +302,7 @@ function Checkminzu(ObjForm){
 		ObjForm.p_name.focus();
 		return false;
 	}
- 
+
 }
 function Checkzkz(ObjForm){
 	if (ObjForm.shuliang.value==""){
@@ -310,7 +310,7 @@ function Checkzkz(ObjForm){
 		ObjForm.p_name.focus();
 		return false;
 	}
- 
+
 }
 function Checkshengma(ObjForm){
 	if (ObjForm.p_name.value==""){
@@ -322,7 +322,7 @@ function Checkshengma(ObjForm){
 		alert('请输入省码值!');
 		ObjForm.p_zhi.focus();
 		return false;
-	} 
+	}
 }
 function CheckProducts(ObjForm){
 	if (ObjForm.p_class.value==""){
@@ -486,4 +486,189 @@ function CheckLinks2(ObjForm){
 		ObjForm.l_url.focus();
 		return false;
 	}
+}
+
+
+function edit(x) {
+	var sub_id = "sub_bt" + x
+	var edit_id = "edit_bt" + x
+	var cel_id = "cel_bt" + x
+
+	var s_seat_num = "s_seat_num" + x
+	var s_exam_id = "s_exam_id" + x
+	var s_exam_num = "s_exam_num" + x
+	var s_exam_subject = "s_exam_subject" + x
+	var s_exam_room = "s_exam_room" + x
+	var s_exam_venue = "s_exam_venue" + x
+	var s_exam_date1 = "s_exam_date" + x
+	var s_exam_date2 = "s_exam_date" + x + "_"+ x
+	var s_exam_date3 = "s_exam_date" + x + "_" + x + "_" + x
+
+	var u_seat_num = "u_seat_num" + x
+	var u_exam_id = "u_exam_id" + x
+	var u_exam_num = "u_exam_num" + x
+	var u_exam_subject = "u_exam_subject" + x
+	var u_exam_room = "u_exam_room" + x
+	var u_exam_venue = "u_exam_venue" + x
+	var u_exam_date = "u_exam_date" + x
+
+	tagMode(sub_id, false);
+	showTag(cel_id);
+	hiddenTag(edit_id);
+
+	// showTag(s_seat_num);
+	// hiddenTag(u_seat_num);
+
+	showTag(s_exam_num);
+	hiddenTag(u_exam_num);
+
+	showTag(s_exam_date1);
+	// showTag(s_exam_date2);
+	// showTag(s_exam_date3);
+	// showTag(s_exam_date);
+	hiddenTag(u_exam_date);
+
+	showTag(s_exam_room);
+	hiddenTag(u_exam_room);
+
+	showTag(s_exam_venue);
+	hiddenTag(u_exam_venue);
+
+	showTag(s_exam_subject);
+	hiddenTag(u_exam_subject);
+
+	showTag(s_exam_id);
+	hiddenTag(u_exam_id);
+
+	changeValue(u_seat_num, s_seat_num)
+	changeValue(u_exam_num, s_exam_num)
+	changeValue(u_exam_room, s_exam_room)
+	changeValue(u_exam_venue, s_exam_venue)
+	changeValue(u_exam_subject, s_exam_subject)
+	changeValue(u_exam_date, s_exam_date1)
+	changeValue(u_exam_id, s_exam_id)
+	// changeDateValue(u_exam_date, s_exam_date1, s_exam_date2, s_exam_date3)
+}
+
+function sub(x) {
+	// var sub_id = "sub_bt" + x
+	// var edit_id = "edit_bt" + x
+	// var cel_id = "cel_bt" + x
+	//
+	// var s_seat_num = "s_seat_num" + x
+	// var s_exam_id = "s_exam_id" + x
+	// var s_exam_num = "s_exam_num" + x
+	// var s_exam_subject = "s_exam_subject" + x
+	// var s_exam_room = "s_exam_room" + x
+	// var s_exam_venue = "s_exam_venue" + x
+	// var s_exam_date = "s_exam_date" + x
+	//
+	// var u_seat_num = "u_seat_num" + x
+	// var u_exam_id = "u_exam_id" + x
+	// var u_exam_num = "u_exam_num" + x
+	// var u_exam_subject = "u_exam_subject" + x
+	// var u_exam_room = "u_exam_room" + x
+	// var u_exam_venue = "u_exam_venue" + x
+	// var u_exam_date = "u_exam_date" + x
+	//
+	// tagMode(sub_id, true);
+	// // document.getElementById(sub_id).disabled = true;
+	// showTag(edit_id);
+	// hiddenTag(cel_id);
+	//
+	// hiddenTag(s_seat_num);
+	// showTag(u_seat_num);
+	//
+	// hiddenTag(s_exam_num);
+	// showTag(u_exam_num);
+	//
+	// hiddenTag(s_exam_date);
+	// showTag(u_exam_date);
+	//
+	// hiddenTag(s_exam_room);
+	// showTag(u_exam_room);
+	//
+	// hiddenTag(s_exam_venue);
+	// showTag(u_exam_venue);
+	//
+	// hiddenTag(s_exam_subject);
+	// showTag(u_exam_subject);
+	//
+	// hiddenTag(s_exam_id);
+	// showTag(u_exam_id);
+}
+
+function cancel(x) {
+	var sub_id = "sub_bt" + x
+	var edit_id = "edit_bt" + x
+	var cel_id = "cel_bt" + x
+
+	var s_seat_num = "s_seat_num" + x
+	var s_exam_id = "s_exam_id" + x
+	var s_exam_num = "s_exam_num" + x
+	var s_exam_subject = "s_exam_subject" + x
+	var s_exam_room = "s_exam_room" + x
+	var s_exam_venue = "s_exam_venue" + x
+	var s_exam_date1 = "s_exam_date" + x
+	var s_exam_date2 = "s_exam_date" + x + "_"+ x
+	var s_exam_date3 = "s_exam_date" + x + "_" + x + "_" + x
+
+	var u_seat_num = "u_seat_num" + x
+	var u_exam_id = "u_exam_id" + x
+	var u_exam_num = "u_exam_num" + x
+	var u_exam_subject = "u_exam_subject" + x
+	var u_exam_room = "u_exam_room" + x
+	var u_exam_venue = "u_exam_venue" + x
+	var u_exam_date = "u_exam_date" + x
+
+	tagMode(sub_id, true);
+	hiddenTag(cel_id);
+	showTag(edit_id);
+
+	// hiddenTag(s_seat_num);
+	// showTag(u_seat_num);
+
+	hiddenTag(s_exam_num);
+	showTag(u_exam_num);
+
+	hiddenTag(s_exam_date1);
+	// hiddenTag(s_exam_date2);
+	// hiddenTag(s_exam_date3);
+	// hiddenTag(s_exam_date);
+	showTag(u_exam_date);
+
+	hiddenTag(s_exam_room);
+	showTag(u_exam_room);
+
+	hiddenTag(s_exam_venue);
+	showTag(u_exam_venue);
+
+	hiddenTag(s_exam_subject);
+	showTag(u_exam_subject);
+
+	hiddenTag(s_exam_id);
+	showTag(u_exam_id);
+}
+
+function hiddenTag(id) {
+	document.getElementById(id).style = "display: none";
+}
+
+function showTag(id) {
+	document.getElementById(id).style = "display: true";
+}
+
+function tagMode(id, bool) {
+	document.getElementById(id).disabled = bool;
+}
+
+function changeValue(id1, id2) {
+	document.getElementById(id2).value = document.getElementById(id1).innerHTML;
+	document.getElementById(id1).innerHTML = document.getElementById(id2).value;
+}
+function changeDateValue(id, id1, id2, id3) {
+	var date = document.getElementById(id).innerHTML
+	document.getElementById(id1).value = date.substring(0, 5)
+	document.getElementById(id2).value = date.substring(5, 8)
+	document.getElementById(id3).value = date.substring(8, 11)
 }

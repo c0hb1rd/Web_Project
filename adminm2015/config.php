@@ -1,22 +1,22 @@
 <?php
 session_start();
 header('Content-type: text/html;charset=UTF-8');
-function getIP() { 
-if (@$_SERVER["HTTP_X_FORWARDED_FOR"]) 
-$ip = $_SERVER["HTTP_X_FORWARDED_FOR"]; 
-else if (@$_SERVER["HTTP_CLIENT_IP"]) 
-$ip = $_SERVER["HTTP_CLIENT_IP"]; 
-else if (@$_SERVER["REMOTE_ADDR"]) 
-$ip = $_SERVER["REMOTE_ADDR"]; 
+function getIP() {
+if (@$_SERVER["HTTP_X_FORWARDED_FOR"])
+$ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+else if (@$_SERVER["HTTP_CLIENT_IP"])
+$ip = $_SERVER["HTTP_CLIENT_IP"];
+else if (@$_SERVER["REMOTE_ADDR"])
+$ip = $_SERVER["REMOTE_ADDR"];
 else if (@getenv("HTTP_X_FORWARDED_FOR"))
-$ip = getenv("HTTP_X_FORWARDED_FOR"); 
-else if (@getenv("HTTP_CLIENT_IP")) 
-$ip = getenv("HTTP_CLIENT_IP"); 
-else if (@getenv("REMOTE_ADDR")) 
-$ip = getenv("REMOTE_ADDR"); 
-else 
-$ip = "Unknown"; 
-return $ip; 
+$ip = getenv("HTTP_X_FORWARDED_FOR");
+else if (@getenv("HTTP_CLIENT_IP"))
+$ip = getenv("HTTP_CLIENT_IP");
+else if (@getenv("REMOTE_ADDR"))
+$ip = getenv("REMOTE_ADDR");
+else
+$ip = "Unknown";
+return $ip;
 }
 
 $ip = getIP() ;
@@ -29,7 +29,7 @@ $ip3=$arrStr[0].'.'.$arrStr[1];
 	//echo '<br><p align=center><font color="red">无权限登录，如需要访问，请联系管理员。</font></p>';
 	//exit();
 //}
- 
+
 $come_url=strtolower(trim($_SERVER['HTTP_REFERER']));
 if ($come_url==''){
 	echo '<br><p align=center><font color="red">对不起，为了系统安全，不允许直接输入地址访问本系统的后台管理页面。</font></p>';
@@ -77,6 +77,7 @@ function NoData(){
 }
 
 $act=$_GET['act'];
+$u_type=$_GET['u_type'];
 $id=$_GET['id'];
 $meter=$_GET['meter'];
 $meter2=$_GET['meter2'];

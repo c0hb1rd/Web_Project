@@ -5,6 +5,33 @@ require '../inc/function.php';
 ?>
 <?php
 $row_num = $_GET['row'];
+$s_id = $_GET["s_id$row_num"];
+$s_name = $_GET["s_name$row_num"];
+$s_school_num = $_GET["s_school_num$row_num"];
+$s_exam_id = $_GET["s_exam_id$row_num"];
+$s_exam_subject = $_GET["s_exam_subject$row_num"];
+$s_exam_venue = $_GET["s_exam_venue$row_num"];
+$s_exam_num = $_GET["s_exam_num$row_num"];
+$s_seat_num = $_GET["s_seat_num$row_num"];
+$s_exam_room = $_GET["s_exam_room$row_num"];
+$s_exam_date = $_GET["s_exam_date$row_num"] . $_GET["s_exam_date$row_num" . "_" ."$row_num"] . $_GET["s_exam_date$row_num" . "_" ."$row_num" . "_" ."$row_num"];
+
+if ($row_num != "") {
+	$sql = "
+		update kaochang set
+		k_kaoheshijian='$s_exam_date',
+		k_kaoshishishi='$s_exam_room',
+		k_kaoshibianpai='$s_exam_num',
+		k_xuhao='$s_exam_id',
+		k_kaochang='$s_exam_venue',
+		k_kaohekemu='$s_exam_subject',
+		k_zuoweihao='$s_seat_num'
+		where k_id=$s_id
+	";
+	mysql_query($sql) or die(mysql_error($sql));
+	Msg('','user_kaochang.php');
+}
+
 $user_id=$_GET['id'];
 if ($_GET['act']=='modok'){
 
@@ -137,29 +164,7 @@ if ($_GET['act']=='modok'){
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="../css/admin.css" type="text/css" />
 	<script type="text/javascript" src="inc/function.js"></script>
-	<script>
-
-		// window.onload=function () {
-		//
-		// 	var obj=document.getElementById("table").getElementsByTagName("button");
-		// 	//var input=getClassName("table","input");
-		//
-		// 	for(var i=0;i<obj.length;i++){
-		// 		obj[i].ondblclick=function (){
-		// 			var add = document.createElement("input");
-		// 			add.type="text";
-		// 			add.value=this.innerHTML;
-		// 			add.onblur=function () {
-		// 				this.parentNode.innerHTML=this.value;
-		// 			}
-		// 			this.innerHTML="";
-		// 			this.appendChild(add);
-		// 		}
-		// 	}
-		// }
-
-		<?php if ($row_num != "") echo 'alert('.$row_num.')'?>
-
+	<script type="text/javascript">
 		function edit(x) {
 			var sub_id = "sub_bt" + x
 			var edit_id = "edit_bt" + x
@@ -171,7 +176,9 @@ if ($_GET['act']=='modok'){
 			var s_exam_subject = "s_exam_subject" + x
 			var s_exam_room = "s_exam_room" + x
 			var s_exam_venue = "s_exam_venue" + x
-			var s_exam_date = "s_exam_date" + x
+			var s_exam_date1 = "s_exam_date" + x
+			var s_exam_date2 = "s_exam_date" + x + "_"+ x
+			var s_exam_date3 = "s_exam_date" + x + "_" + x + "_" + x
 
 			var u_seat_num = "u_seat_num" + x
 			var u_exam_id = "u_exam_id" + x
@@ -188,10 +195,13 @@ if ($_GET['act']=='modok'){
 			showTag(s_seat_num);
 			hiddenTag(u_seat_num);
 
-			showTag(s_exam_num);
-			hiddenTag(u_exam_num);
+			// showTag(s_exam_num);
+			// hiddenTag(u_exam_num);
 
-			showTag(s_exam_date);
+			showTag(s_exam_date1);
+			// showTag(s_exam_date2);
+			// showTag(s_exam_date3);
+			// showTag(s_exam_date);
 			hiddenTag(u_exam_date);
 
 			showTag(s_exam_room);
@@ -205,61 +215,63 @@ if ($_GET['act']=='modok'){
 
 			showTag(s_exam_id);
 			hiddenTag(u_exam_id);
+
+			changeValue(u_seat_num, s_seat_num)
+			changeValue(u_exam_num, s_exam_num)
+			changeValue(u_exam_room, s_exam_room)
+			changeValue(u_exam_venue, s_exam_venue)
+			changeValue(u_exam_subject, s_exam_subject)
+			changeValue(u_exam_date, s_exam_date1)
+			changeValue(u_exam_id, s_exam_id)
+			// changeDateValue(u_exam_date, s_exam_date1, s_exam_date2, s_exam_date3)
 		}
 
 		function sub(x) {
-			var sub_id = "sub_bt" + x
-			var edit_id = "edit_bt" + x
-			var cel_id = "cel_bt" + x
-
-			var s_seat_num = "s_seat_num" + x
-			var s_exam_id = "s_exam_id" + x
-			var s_exam_num = "s_exam_num" + x
-			var s_exam_subject = "s_exam_subject" + x
-			var s_exam_room = "s_exam_room" + x
-			var s_exam_venue = "s_exam_venue" + x
-			var s_exam_date = "s_exam_date" + x
-
-			var u_seat_num = "u_seat_num" + x
-			var u_exam_id = "u_exam_id" + x
-			var u_exam_num = "u_exam_num" + x
-			var u_exam_subject = "u_exam_subject" + x
-			var u_exam_room = "u_exam_room" + x
-			var u_exam_venue = "u_exam_venue" + x
-			var u_exam_date = "u_exam_date" + x
-
-			tagMode(sub_id, true);
-			// document.getElementById(sub_id).disabled = true;
-			showTag(edit_id);
-			hiddenTag(cel_id);
-
-			hiddenTag(s_seat_num);
-			showTag(u_seat_num);
-			changeValue(u_seat_num, s_seat_num)
-
-			hiddenTag(s_exam_num);
-			showTag(u_exam_num);
-			changeValue(u_exam_num, s_exam_num)
-
-			hiddenTag(s_exam_date);
-			showTag(u_exam_date);
-			changeValue(u_exam_date, s_exam_date)
-
-			hiddenTag(s_exam_room);
-			showTag(u_exam_room);
-			changeValue(u_exam_room, s_exam_room)
-
-			hiddenTag(s_exam_venue);
-			showTag(u_exam_venue);
-			changeValue(u_exam_venue, s_exam_venue)
-
-			hiddenTag(s_exam_subject);
-			showTag(u_exam_subject);
-			changeValue(u_exam_subject, s_exam_subject)
-
-			hiddenTag(s_exam_id);
-			showTag(u_exam_id);
-			changeValue(u_exam_id, s_exam_id)
+			// var sub_id = "sub_bt" + x
+			// var edit_id = "edit_bt" + x
+			// var cel_id = "cel_bt" + x
+			//
+			// var s_seat_num = "s_seat_num" + x
+			// var s_exam_id = "s_exam_id" + x
+			// var s_exam_num = "s_exam_num" + x
+			// var s_exam_subject = "s_exam_subject" + x
+			// var s_exam_room = "s_exam_room" + x
+			// var s_exam_venue = "s_exam_venue" + x
+			// var s_exam_date = "s_exam_date" + x
+			//
+			// var u_seat_num = "u_seat_num" + x
+			// var u_exam_id = "u_exam_id" + x
+			// var u_exam_num = "u_exam_num" + x
+			// var u_exam_subject = "u_exam_subject" + x
+			// var u_exam_room = "u_exam_room" + x
+			// var u_exam_venue = "u_exam_venue" + x
+			// var u_exam_date = "u_exam_date" + x
+			//
+			// tagMode(sub_id, true);
+			// // document.getElementById(sub_id).disabled = true;
+			// showTag(edit_id);
+			// hiddenTag(cel_id);
+			//
+			// hiddenTag(s_seat_num);
+			// showTag(u_seat_num);
+			//
+			// hiddenTag(s_exam_num);
+			// showTag(u_exam_num);
+			//
+			// hiddenTag(s_exam_date);
+			// showTag(u_exam_date);
+			//
+			// hiddenTag(s_exam_room);
+			// showTag(u_exam_room);
+			//
+			// hiddenTag(s_exam_venue);
+			// showTag(u_exam_venue);
+			//
+			// hiddenTag(s_exam_subject);
+			// showTag(u_exam_subject);
+			//
+			// hiddenTag(s_exam_id);
+			// showTag(u_exam_id);
 		}
 
 		function cancel(x) {
@@ -273,7 +285,9 @@ if ($_GET['act']=='modok'){
 			var s_exam_subject = "s_exam_subject" + x
 			var s_exam_room = "s_exam_room" + x
 			var s_exam_venue = "s_exam_venue" + x
-			var s_exam_date = "s_exam_date" + x
+			var s_exam_date1 = "s_exam_date" + x
+			var s_exam_date2 = "s_exam_date" + x + "_"+ x
+			var s_exam_date3 = "s_exam_date" + x + "_" + x + "_" + x
 
 			var u_seat_num = "u_seat_num" + x
 			var u_exam_id = "u_exam_id" + x
@@ -290,10 +304,13 @@ if ($_GET['act']=='modok'){
 			hiddenTag(s_seat_num);
 			showTag(u_seat_num);
 
-			hiddenTag(s_exam_num);
-			showTag(u_exam_num);
+			// hiddenTag(s_exam_num);
+			// showTag(u_exam_num);
 
-			hiddenTag(s_exam_date);
+			hiddenTag(s_exam_date1);
+			// hiddenTag(s_exam_date2);
+			// hiddenTag(s_exam_date3);
+			// hiddenTag(s_exam_date);
 			showTag(u_exam_date);
 
 			hiddenTag(s_exam_room);
@@ -310,20 +327,34 @@ if ($_GET['act']=='modok'){
 		}
 
 		function hiddenTag(id) {
-			document.getElementById(id).style = "display: none";
+			var obj = document.getElementById(id);
+			// alert(obj.setAttribute("style", "display: none"));
+			// alert(document.getElementById(id).getAttribute("style"));
+			document.getElementById(id).style.display = "none";
 		}
 
 		function showTag(id) {
-			document.getElementById(id).style = "display: true";
+			var obj = document.getElementById(id);
+			// alert(document.getElementById(id).getAttribute("style"));
+			// alert(obj.setAttribute("style", "display: true"));
+			// document.getElementById(id).style = "display: true";
+			document.getElementById(id).style.display = "inline";
 		}
 
 		function tagMode(id, bool) {
 			document.getElementById(id).disabled = bool;
+			// alert(document.getElementById(id).style.display);
 		}
 
 		function changeValue(id1, id2) {
-			// document.getElementById(id2).value = document.getElementById(id1).innerHTML;
+			document.getElementById(id2).value = document.getElementById(id1).innerHTML;
 			document.getElementById(id1).innerHTML = document.getElementById(id2).value;
+		}
+		function changeDateValue(id, id1, id2, id3) {
+			var date = document.getElementById(id).innerHTML
+			document.getElementById(id1).value = date.substring(0, 5)
+			document.getElementById(id2).value = date.substring(5, 8)
+			document.getElementById(id3).value = date.substring(8, 11)
 		}
 	</script>
 </head>
@@ -344,40 +375,48 @@ switch($act){
 
 }
 ?>
-<div id="container">
-	<div class="view">
-				<h1>考场管理</h1>
 
-		<!-- <form name="form1" method="post" action="user_kaochang.php?act=modok"> -->
+<div id="container">
+	<?php
+	$str='';
+	$str.='<a href="user_kaochang.php" style="color:#ff0000; font-weight:bold;">全部</a>';
+
+	echo $str;
+	?>
+	<input type="text" id="search_key" class="search_input" size="30" value="<?php echo  $search_key ?>" />&nbsp;<input type="button" name="button" class="search_button" value="搜 索" onclick="location.href='?search_key='+$('search_key').value" />&nbsp;&nbsp;&nbsp;可以通过考核科目，姓名进行搜索查找<br>
+
+	<div class="view">
+				<h1>报考管理</h1>
+
 			<table width="100%" border="0" id="table" cellpadding="0" cellspacing="0">
 				<tr class="v_title">
-					<td width="8%">编辑</td>
-					<!-- <td width="10%">毕业学校</td> -->
-					<!-- <td width="5%">用户名</td> -->
-					<td width="10%">姓名</td>
-					<!-- <td width="3%">性别</td> -->
+					<td width="7%">姓名</td>
 					<td width="10%">考生号</td>
-					<td width="6%">序号</td>
-					<!-- <td width="10%">身份证</td>
-					<td width="10%">专业</td>
-					<td width="10%">报考专业</td> -->
-					<td width="20%">考核科目</td>
-					<td width="10%">考场</td>
-					<td width="10%">考场编号</td>
+					<td width="5%">序号</td>
+					<td width="15%">考核科目</td>
+					<td width="13%">考场</td>
+					<!-- <td width="8%">考场编号</td> -->
 					<td width="6%">座位号</td>
-					<td width="10%">考试教室</td>
-					<td width="20%">考核时间</td>
+					<td width="8%">考试教室</td>
+					<td width="18%">考核时间</td>
+					<td width="8%">编辑</td>
 				</tr>
 				<?php
 				$page_size=15;
-				if ($_SESSION['admin_user'] == 'admin')
-					$page_sql='select * from examination_room order by id desc ';
-				else {
-					$user = $_SESSION['admin_user'];
-					$query=mysql_query("select * from admin where a_user='$user'");
-					$row=mysql_fetch_array($query);
-					$belong_school_id = $row['belong_school_id'];
-					$page_sql = "select * from user where u_school_id=$belong_school_id and u_type=1 order by u_id desc where u_type=1";
+				$page_sql = '';
+				if(isset($_GET['search_key'])){
+					$serarch_key = $_GET['search_key'];
+					$page_sql = 'select * from kaochang where k_xingming like "%' .$search_key. '%" or k_kaohekemu like "%' .$search_key.'%" order by k_id2 desc';
+				} else{
+					if ($_SESSION['admin_user'] == 'admin') {
+						$page_sql='select * from kaochang order by k_id2 desc ';
+					} else {
+						$user = $_SESSION['admin_user'];
+						$query=mysql_query("select * from admin where a_user='$user'");
+						$row=mysql_fetch_array($query);
+						$belong_school_id = $row['belong_school_id'];
+						$page_sql = "select * from user where u_school_id=$belong_school_id and u_type=1 order by u_id desc where u_type=1";
+					}
 				}
 				$page_count=GetPageCount($page_size,$page_sql);
 				if ($page>$page_count) $page=$page_count;
@@ -388,43 +427,102 @@ switch($act){
 					$i = 0;
 					while($row=mysql_fetch_array($query)){
 						$i++;
-
-						// $str . = "<form id=\"row$i\" name=\"row$i\" action=\".\" method=\"post\">";
-						$str.='<tr onmouseover="this.className=\'view_trover\';" onmouseout="this.className=\'view_trout\';">';
-						// $str.='<td>'.$row['u_id'].'</td>';
-						// $str.= "<form id=\"row$i\" name=\"row$i\" action=\"user_kaochang.php?row=$i\">";
-						$str.= "
-							<td><form id=\"row$i\" name=\"row$i\" action=\"user_kaochang.php\">
-							<input type=\"hidden\" name=\"row\" value=\"$i\">
-							<button id=\"edit_bt$i\" name=\"edit_bt$i\" type=\"button\" onclick=\"edit($i)\" style=\"display: true\">修改</button>
-							<input id=\"cel_bt$i\" name=\"cel_bt$i\" type=\"button\" onclick=\"cancel($i)\" style=\"display: none\" value=\"取消\">
-							<input id=\"sub_bt$i\" name=\"sub_bt$i\" type=\"submit\" disabled  value=\"提交\">";
-						// $str.='<td></td>';
-
-						$str.= '<td><input style="border: 0; display: none" id="s_name' . $i . '" name="s_name'. $i .'" size=6 value=' . $row['s_name'] . '><span id="u_name'.$i.'" name="u_name'.$i.'" style="display: true">'. $row['s_name'].'</span></td>';
-
-						// $str.='<td>'.$row['u_name'].'</td>';
-						// switch ($row['u_sex']) {
-						// 	case 1:
-						// 		$str .= '<td>男</td>'; break;
-						// 	case 2:
-						// 		$str .= '<td>女</td>'; break;
-						// 	default:
-						// 		$str .= '<td></td>';
-						// }
-						$str.= '<td><input style="border: 0; display: none" id="s_school_num' . $i . '" name="s_school_num'. $i .'" size=6 value=' . $row['s_school_num'] . '><span id="u_school_num'.$i.'" name="u_school_num'.$i.'" style="display: true">'. $row['s_school_num'].'</span></td>';
-
-						// $str.='<td>'.$row['u_zj_num'].'</td>';
-						// $str.='<td>'.$row['u_vocational'].'</td>';
-						// $str.='<td>'.$row['u_applyfor'].'</td>';
-						$str.= '<td><input size="1" maxlength="2" style="border: 0; display: none" id="s_exam_id' . $i . '" name="s_exam_id'. $i .'" size=6 value="' . $row['s_exam_id'] . '"><span id="u_exam_id'.$i.'" name="u_exam_id'.$i.'" style="display: true">'. $row['s_exam_id'].'</span></td>';
-						$str.= '<td><input size="10" style="border: 0; display: none" id="s_exam_subject' . $i . '" name="s_exam_subject'. $i .'" size=6 value=' . $row['s_exam_subject'] . '><span id="u_exam_subject'.$i.'" name="u_exam_subject'.$i.'" style="display: true">'. $row['s_exam_subject'].'</span></td>';
-						$str.= '<td><input style="border: 0; display: none" id="s_exam_venue' . $i . '" name="s_exam_venue'. $i .'" size=6 value=' . $row['s_exam_venue'] . '><span id="u_exam_venue'.$i.'" name="u_exam_venue'.$i.'" style="display: true">'. $row['s_exam_venue'].'</span></td>';
-						$str.= '<td><input style="border: 0; display: none" id="s_exam_num' . $i . '" name="s_exam_num'. $i .'" size=6 value=' . $row['s_exam_num'] . '><span id="u_exam_num'.$i.'" name="u_exam_num'.$i.'" style="display: true">'. $row['s_exam_num'].'</span></td>';
-						$str.= '<td><input size="1" maxlength="2" style="border: 0; display: none" id="s_seat_num' . $i . '" name="s_seat_num'. $i .'" size=6 value=' . $row['s_seat_num'] . '><span id="u_seat_num'.$i.'" name="u_seat_num'.$i.'" style="display: true">'. $row['s_seat_num'].'</span></td>';
-						$str.= '<td><input style="border: 0; display: none" id="s_exam_room' . $i . '" name="s_exam_room'. $i .'" size=6 value=' . $row['s_exam_room'] . '><span id="u_exam_room'.$i.'" name="u_exam_room'.$i.'" style="display: true">'. $row['s_exam_room'].'</span></td>';
-						$str.= '<td><input style="border: 0; display: none" id="s_exam_date' . $i . '" name="s_exam_date'. $i .'" size=6 value=' . $row['s_exam_date'] . '><span id="u_exam_date'.$i.'" name="u_exam_date'.$i.'" style="display: true">'. $row['s_exam_date'].'</span></form></td>';
-						$str.='</tr>';
+						$str.= '<tr onmouseover="this.className=\'view_trover\';" onmouseout="this.className=\'view_trout\';">';
+						$str.= '<td>' .
+									'<form id="row' . $i .'"  action="user_kaochang.php">'.
+									'<input style="border: 0; display: none" id="s_name' . $i . '" name="s_name'. $i .'" size=6 value=' . $row['k_xingming'] . '>' .
+									'<span id="u_name'.$i.'" name="u_name'.$i.'" style="display: true">'. $row['k_xingming'].'</span>'.
+							   '</td>';
+						$str.= '<td><input style="border: 0; display: none" id="s_school_num' . $i . '" name="s_school_num'. $i .'" value=' . $row['k_kaoshenghao'] . '><span id="u_school_num'.$i.'" name="u_school_num'.$i.'" style="display: true">'. $row['k_kaoshenghao'].'</span></td>';
+						$str.= '<td><input size="1" pattern="[\d]+" maxlength="2" style="display: none" id="s_exam_id' . $i . '" name="s_exam_id'. $i .'" value="' . $row['k_xuhao'] . '"><span id="u_exam_id'.$i.'" name="u_exam_id'.$i.'" style="display: true">'. $row['k_xuhao'].'</span></td>';
+						$str.= '<td>' .
+									'<select style="display: none" id="s_exam_subject' . $i . '" name="s_exam_subject'. $i .'">' .
+										'<option value="">请选择</option>';
+										$query1=mysql_query('select * from dz_exam_subject order by p_id');
+			                            if(mysql_num_rows($query1)>0){
+			                                while($row1=mysql_fetch_array($query1)){
+			                                    $str.='<option value="'.$row1['p_name'].'">'.$row1['p_name'].'</option>';
+			                                }
+			                            }
+						$str.=		'</select>' .
+									'<span id="u_exam_subject'.$i.'" name="u_exam_subject'.$i.'" style="display: true">'. $row['k_kaohekemu'].'</span>' .
+							   '</td>';
+						$str.= '<td>' .
+									'<select style="display: none" id="s_exam_venue' . $i . '" name="s_exam_venue'. $i . '">' .
+										'<option value="">请选择</option>';
+										$query1=mysql_query('select * from dz_exam_venue order by p_id');
+			                            if(mysql_num_rows($query1)>0){
+			                                while($row1=mysql_fetch_array($query1)){
+			                                    $str.='<option value="'.$row1['p_name'].'">'.$row1['p_name'].'</option>';
+			                                }
+			                            }
+						$str.= 		'</select>' .
+									'<span id="u_exam_venue'.$i.'" name="u_exam_venue'.$i.'" style="display: true">'. $row['k_kaochang'].'</span>' .
+							   '</td>';
+						// $str.= '<td>' .
+						// 			'<select style="display: none" id="s_exam_num' . $i . '" name="s_exam_num'. $i .'">';
+						// 				for ($j = 0; $j <= 6; $j++) {
+						// 					if ($j == 0)
+						// 						$str.='<option value="">请选择</option>';
+						// 					else
+						// 						$str.='<option value="0'.$j.'">0'.$j.'</option>';
+						// 				}
+						// $str.=		'</select>' .
+						// 			'<span id="u_exam_num'.$i.'" name="u_exam_num'.$i.'" style="display: true">'. $row['k_kaoshibianpai'].'</span>' .
+						// 	   '</td>';
+						$str.= '<td><input size="1" pattern="[\d]+" maxlength="2" style="border: 0; display: none" id="s_seat_num' . $i . '" name="s_seat_num'. $i .'" size=6 value=' . $row['k_zuoweihao'] . '><span id="u_seat_num'.$i.'" name="u_seat_num'.$i.'" style="display: true">'. $row['k_zuoweihao'].'</span></td>';
+						$str.= '<td>' .
+									'<select style="display: none" id="s_exam_room' . $i . '" name="s_exam_room'. $i .'">' .
+										'<option value="">请选择</option>';
+										$query1=mysql_query('select * from dz_exam_room order by p_id');
+			                            if(mysql_num_rows($query1)>0){
+			                                while($row1=mysql_fetch_array($query1)){
+			                                    $str.='<option value="'.$row1['p_name'].'">'.$row1['p_name'].'</option>';
+			                                }
+			                            }
+						$str.=		'</select>' .
+									'<span id="u_exam_room'.$i.'" name="u_exam_room'.$i.'" style="display: true">'. $row['k_kaoshishishi'].'</span>' .
+							   '</td>';
+						$str.= '<td>';
+						// $str.= 		'<select style="display: none" id="s_exam_date' . $i . '" name="s_exam_date'. $i .'">';
+						// 				for ($j = 2014; $j <= 2070; $j++) {
+						// 					if ($j == 2014)
+						// 						$str.='<option value="">请选择</option>';
+						// 					else
+						// 						$str.='<option value="'.$j.'年">'.$j.'年</option>';
+						// 				}
+						// $str.=		'</select>';
+						// $str.=		'<select style="display: none" id="s_exam_date' . $i . '_' . $i . '" name="s_exam_date'. $i . '_' . $i. '">';
+						// 				for ($j = 0; $j <= 12; $j++) {
+						// 					if ($j == 0)
+						// 						$str.='<option value="">请选择</option>';
+						// 					else if ($j < 10)
+						// 						$str.='<option value="0'.$j.'月">0'.$j.'月</option>';
+						// 					else
+						// 						$str.='<option value="'.$j.'月">'.$j.'月</option>';
+						// 				}
+						// $str.=		'</select>';
+						// $str.=		'<select style="display: none" id="s_exam_date' . $i . '_' . $i. '_' . $i . '" name="s_exam_date'. $i . '_' . $i. '_' . $i .'">';
+						// 				for ($j = 0; $j <= 31; $j++) {
+						// 					if ($j == 0)
+						// 						$str.='<option value="">请选择</option>';
+						// 					else if ($j < 10)
+						// 						$str.='<option value="0'.$j.'日">0'.$j.'日</option>';
+						// 					else
+						// 						$str.='<option value="'.$j.'日">'.$j.'日</option>';
+						// 	    		}
+						// $str.= 		'</select>';
+						$str.=		'<input size="30" style="display: none" id="s_exam_date' . $i . '" name="s_exam_date'. $i .'" value="' . $row['k_kaoheshijian'] . '">' .
+							   		'<span id="u_exam_date'.$i.'" name="u_exam_date'.$i.'" style="display: true">'. $row['k_kaoheshijian'].'</span>' .
+							   '</td>';
+						$str.= '<td>' .
+									'<input type="hidden" name="s_id' .$i . '" value="' . $row['k_id'] . '">' .
+									'<input type="hidden" name="row" value="' . $i . '">' .
+									'<input id="edit_bt' .$i . '" name="edit_bt' .$i . '" type="button" onclick="edit(' .$i . ')" style="display: true" value="修改">' .
+									'<input id="cel_bt' .$i . '" name="cel_bt' .$i . '" type="button" onclick="cancel(' .$i . ')" style="display: none" value="取消">' .
+									'&nbsp;<input id="sub_bt' .$i . '" name="sub_bt' .$i . '" type="submit" disabled  value="提交">' .
+								'</td></form>';
+						$str.= '</tr>';
 						$page_number++;
 					}
 					echo $str;
@@ -434,7 +532,6 @@ switch($act){
 				}
 				?>
 			</table>
-		<!-- </form> -->
 		<?php if($page_show) echo ShowPage($page,$page_size,$page_sql); ?>
 	</div>
 </div>
