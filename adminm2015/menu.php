@@ -42,16 +42,36 @@ function Menu(ObjNum){
 		?>
         <li><a href="site_config.php" target="main">网站配置</a>　<!--<a href="online_service.php" target="main">浮动客服</a>--></li>
         <li><a href="ad.php" target="main">首页Banner</a>　<!--<a href="adi.php" target="main">首页图片</a>--></li>
-		<li><a href="user.php" target="main">用户管理</a>　<!--<a href="orders.php" target="main">报名管理</a>--></li>
-		<li><a href="user_kaochang.php" target="main">报考管理</a>　<!--<a href="orders.php" target="main">报名管理</a>--></li>
-		<li><a href="kemu_class.php" target="main">考核科目管理</a></li>
-		<li><a href="shishi_class.php" target="main">考核试室管理</a></li>
-		<li><a href="kaochang_class.php" target="main">考场管理</a></li>
-		<li><a href="kaoshenghao_manage.php" target="main">考生号与座位号生成</a></li>
-        <li><a href="aboutus_modify.php?id=1" target="main">报名流程</a></li>
-		<li><a href="orders_pic.php" target="main">相片预览</a></li>
-        <li><a href="kaoshi.php" target="main">准考证打印</a>　</li>
-	    <li><a href="qiandaobiao.php" target="main">签到表打印</a>　</li>
+		<li>
+			<a href="user.php" target="main">用户管理</a>　<!--<a href="orders.php" target="main">报名管理</a>-->
+		</li>
+		<li>
+			<a href="user_kaochang.php" target="main">报考管理</a>　<!--<a href="orders.php" target="main">报名管理</a>-->
+		</li>
+		<li>
+			<a href="kemu_class.php" target="main">考核科目管理</a>
+		</li>
+		<li>
+			<a href="shishi_class.php" target="main">考核试室管理</a>
+		</li>
+		<li>
+			<a href="kaochang_class.php" target="main">考场管理</a>
+		</li>
+		<li>
+			<a href="kaoshenghao_manage.php" target="main">考生号与座位号生成</a>
+		</li>
+        	<li>
+        		<a href="aboutus_modify.php?id=1" target="main">报名流程</a>
+        	</li>
+		<li>
+			<a href="orders_pic.php" target="main">相片预览</a>
+		</li>
+        	<li>
+        		<a href="kaoshi.php" target="main">准考证打印</a>
+        	</li>
+	    	<li>
+	    		<a href="qiandaobiao.php" target="main">签到表打印</a>
+	    	</li>
         <!-- <li><a href="qiandaobiao_xq.php" target="_blank">签到表打印(xq)</a>　</li> -->
 	<!-- <li><a href="orders_count.php" target="main">报名统计</a>　</li> -->
     </ul>
