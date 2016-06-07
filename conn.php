@@ -1,9 +1,9 @@
 ﻿<?php
 $language='cn';
 $mysql_host='localhost';
-$mysql_username='root';//帐号
-$mysql_database='kaoshi01';//数据库连接发生错误
-$mysql_password='hackingme?233333';
+$mysql_username='';//帐号
+$mysql_database='';//数据库连接发生错误
+$mysql_password='';
 $conn=mysql_connect($mysql_host,$mysql_username,$mysql_password) or die ('MySql连接发生错误：'.mysql_error());
 mysql_select_db($mysql_database,$conn) or die ('数据库连接发生错误：'.mysql_error());
 mysql_query("SET NAMES UTF8");  
